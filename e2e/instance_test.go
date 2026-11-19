@@ -34,10 +34,21 @@ func (b *browser) instance() (instanceStatus, int) {
 func (b *browser) waitInstance(state string) instanceStatus {
 	b.t.Helper()
 	deadline := time.Now().Add(120 * time.Second)
+	var failedSince time.Time
 	for {
 		s, code := b.instance()
 		if code == http.StatusOK && s.State == state {
 			return s
+		}
+		// Failed is terminal until a retry, which applies asynchronously; a lasting failure will not recover.
+		if code == http.StatusOK && s.State == "failed" {
+			if failedSince.IsZero() {
+				failedSince = time.Now()
+			} else if time.Since(failedSince) > 10*time.Second {
+				b.t.Fatalf("instance failed instead of reaching %q (%+v)", state, s)
+			}
+		} else {
+			failedSince = time.Time{}
 		}
 		if time.Now().After(deadline) {
 			b.t.Fatalf("instance never reached %q (last %d %+v)", state, code, s)
