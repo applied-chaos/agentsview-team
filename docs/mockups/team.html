@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script>
+<style>main.wrap>section,.cols2{margin-top:var(--s7)}.cols2 section{margin-top:0}.cols2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8)}@media (max-width:1000px){.cols2{grid-template-columns:1fr;gap:var(--s7)}}</style></head>
+<body data-tab="team">
+<main class="wrap">
+  <div class="ph"><div><h1>Team</h1><p class="mu">Everyone, last 30 days. Figures are never broken down by person.</p></div></div>
+  <div class="band" style="--n:6">
+    <div><span class="fig">4,812</span><span class="lbl">sessions</span><span class="you">You: 312</span></div>
+    <div><span class="fig">2.31B</span><span class="lbl">tokens in</span><span class="you">You: 151M</span></div>
+    <div><span class="fig">61M</span><span class="lbl">tokens out</span><span class="you">You: 37M</span></div>
+    <div><span class="fig">$9,240</span><span class="lbl">estimated cost</span><span class="you">You: $612</span></div>
+    <div><span class="fig">38</span><span class="lbl">active Users</span></div>
+    <div><span class="fig">112</span><span class="lbl">active Hosts</span><span class="you">You: 5</span></div>
+  </div>
+  <section aria-labelledby="tpd">
+    <div class="sec"><h2 id="tpd">Tokens per day</h2></div>
+    <div data-chart="3" data-heat></div>
+  </section>
+  <div class="cols2">
+    <section aria-labelledby="tm">
+      <div class="sec"><h2 id="tm">Top models</h2></div>
+      <div class="list" style="--cols:minmax(0,1.6fr) 90px 90px 70px">
+        <div class="r hd"><span>Name</span><span class="hm end">Sessions</span><span class="hm end">Tokens</span><span class="end">Share</span></div>
+        <div class="r"><span class="nm">claude-sonnet-5-5</span><span class="hm end">1,926</span><span class="hm end">1.05B</span><span class="end">44%</span></div>
+        <div class="r"><span class="nm">claude-opus-5-5</span><span class="hm end">1,204</span><span class="hm end">612M</span><span class="end">26%</span></div>
+        <div class="r"><span class="nm">gpt-5.4</span><span class="hm end">842</span><span class="hm end">371M</span><span class="end">16%</span></div>
+        <div class="r"><span class="nm">claude-haiku-5-5</span><span class="hm end">536</span><span class="hm end">214M</span><span class="end">9%</span></div>
+        <div class="r"><span class="nm">gemini-3-pro</span><span class="hm end">304</span><span class="hm end">98M</span><span class="end">5%</span></div>
+      </div>
+    </section>
+    <section aria-labelledby="ta">
+      <div class="sec"><h2 id="ta">Top agents</h2></div>
+      <div class="list" style="--cols:minmax(0,1.6fr) 90px 90px 70px">
+        <div class="r hd"><span>Name</span><span class="hm end">Sessions</span><span class="hm end">Tokens</span><span class="end">Share</span></div>
+        <div class="r"><span class="nm">Claude Code</span><span class="hm end">2,788</span><span class="hm end">1.38B</span><span class="end">58%</span></div>
+        <div class="r"><span class="nm">Codex</span><span class="hm end">1,011</span><span class="hm end">502M</span><span class="end">21%</span></div>
+        <div class="r"><span class="nm">Cursor</span><span class="hm end">622</span><span class="hm end">281M</span><span class="end">12%</span></div>
+        <div class="r"><span class="nm">Gemini CLI</span><span class="hm end">264</span><span class="hm end">98M</span><span class="end">6%</span></div>
+        <div class="r"><span class="nm">Aider</span><span class="hm end">127</span><span class="hm end">46M</span><span class="end">3%</span></div>
+      </div>
+    </section>
+  </div>
+</main>
+</body></html>

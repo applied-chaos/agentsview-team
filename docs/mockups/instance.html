@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Instance · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script></head>
+<body data-bar="slim">
+<main><h1 class="vh">My Instance</h1>
+<div class="av-app">
+  <aside aria-label="Sessions">
+    <div class="s on"><b>Fix flaky upload retry test</b><span class="mu">jess-mbp · Claude Code · 14 min ago</span></div>
+    <div class="s"><b>Add pagination to Hosts API</b><span class="mu">jess-mbp · Claude Code · 1 h ago</span></div>
+    <div class="s"><b>Bump Postgres image in CI</b><span class="mu">build-01 · Codex · 2 h ago</span></div>
+    <div class="s"><b>Refactor token parser</b><span class="mu">jess-mbp · Claude Code · 5 h ago</span></div>
+    <div class="s"><b>Investigate slow nightly build</b><span class="mu">ci-runner-03 · Claude Code · yesterday</span></div>
+    <div class="s"><b>Write migration for audit log</b><span class="mu">jess-mbp · Cursor · yesterday</span></div>
+    <div class="s"><b>Update README install steps</b><span class="mu">devbox-win · Gemini CLI · 2 days ago</span></div>
+    <div class="s"><b>Triage dependency alerts</b><span class="mu">build-01 · Claude Code · 3 days ago</span></div>
+  </aside>
+  <div class="t">
+    <h2>Fix flaky upload retry test</h2>
+    <p class="mu sm" style="margin:var(--s1) 0 var(--s4)">jess-mbp · Claude Code · claude-sonnet-5-5 · 14 min ago · 38 messages</p>
+    <div class="msg"><b>You</b>The upload retry test fails about one run in five on CI. Can you find out why?</div>
+    <div class="msg"><b>Claude Code</b>I'll run the test in a loop locally first to reproduce it, then read the retry logic in uploader.go.</div>
+    <div class="msg"><b>Claude Code</b>Reproduced on run 7. The test sleeps for a fixed 50 ms but the backoff starts at 40 ms with jitter, so the second attempt sometimes lands after the assertion.</div>
+    <div class="msg"><b>You</b>Don't change the production backoff. Make the test deterministic.</div>
+    <div class="msg"><b>Claude Code</b>I've injected a fake clock into the uploader and replaced the sleep with clock.Advance. The test now asserts on attempt count rather than elapsed time.</div>
+    <div class="msg"><b>Claude Code</b>200 consecutive runs pass with -race. I haven't committed anything; the diff touches uploader_test.go and one test helper.</div>
+  </div>
+</div>
+</main>
+</body></html>

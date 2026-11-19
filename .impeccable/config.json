@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/mockups/add-host.html"
+        ],
+        "createdAt": "2026-11-14T16:55:40.913Z",
+        "reason": "Claude triage: .seg track has 2px padding, each option carries its own 6x14px inset; detector misreads nested inset"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/mockups/admin-users.html"
+        ],
+        "createdAt": "2026-11-14T16:55:40.932Z",
+        "reason": "Claude triage: .seg segmented control, options carry own inset"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/mockups/team.html"
+        ],
+        "createdAt": "2026-11-14T16:55:40.948Z",
+        "reason": "Claude triage: ruled figure band; text inset 16-24px from hairline dividers, open outer edge has no border"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".visual-companion/brainstorm/46447-1794673867/content/designer-v2.html"
+        ],
+        "createdAt": "2026-11-14T19:34:50.620Z",
+        "reason": "Designer screen offers font alternatives as choices; Source Sans 3 was picked"
+      }
+    ]
+  }
+}

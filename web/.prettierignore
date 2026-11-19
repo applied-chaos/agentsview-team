@@ -1,0 +1,6 @@
+dist
+node_modules
+src/app.css
+test-results
+e2e/screens
+package-lock.json

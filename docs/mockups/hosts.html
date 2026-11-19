@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hosts · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script></head>
+<body data-tab="hosts"><main class="wrap">
+  <div class="ph">
+    <div><h1>Hosts</h1><p class="mu">Machines that send their agent sessions to your Instance.</p></div>
+    <div class="acts"><a class="btn primary" href="add-host.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Add Host</a></div>
+  </div>
+  <div class="list" style="--cols:100px minmax(0,1.4fr) minmax(0,1.1fr) 120px 110px">
+    <div class="r hd"><span>Status</span><span>Name</span><span>OS</span><span>Last seen</span><span>Version</span></div>
+    <a class="r" href="host.html"><span class="st stc">Online</span><span class="nm">jess-mbp<span class="sub om">macOS 15.1 · 2 min ago</span></span><span class="mu hm">macOS 15.1</span><span class="hm">2 min ago</span><span class="mu hm">0.47.0</span></a>
+    <a class="r" href="host.html"><span class="st stc">Online</span><span class="nm">build-01<span class="sub om">Ubuntu 24.04 · 11 min ago</span></span><span class="mu hm">Ubuntu 24.04</span><span class="hm">11 min ago</span><span class="mu hm">0.47.0</span></a>
+    <a class="r" href="host.html"><span class="st stc">Online</span><span class="nm">ci-runner-03<span class="tag">Ephemeral</span><span class="sub om">Debian 12 · 4 min ago</span></span><span class="mu hm">Debian 12</span><span class="hm">4 min ago</span><span class="mu hm">0.47.0</span></a>
+    <a class="r" href="host.html"><span class="st off stc">Offline</span><span class="nm">devbox-win<span class="sub om">Windows 11 · 2 h ago · update available</span></span><span class="mu hm">Windows 11</span><span class="hm">2 h ago</span><span class="mu hm">0.45.2<span class="upd" role="img" aria-label="Update available" title="Update available: 0.47.0"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg></span></span></a>
+    <a class="r" href="host.html"><span class="st off stc">Offline</span><span class="nm">codespace-api-7f2<span class="tag">Ephemeral</span><span class="sub om">Ubuntu 22.04 · 3 days ago</span></span><span class="mu hm">Ubuntu 22.04</span><span class="hm">3 days ago</span><span class="mu hm">0.47.0</span></a>
+    <a class="r" href="host.html"><span class="st rev stc">Revoked</span><span class="nm mu">old-laptop<span class="sub om">macOS 14.6 · revoked 2 Nov</span></span><span class="mu hm">macOS 14.6</span><span class="mu hm">Revoked 2 Nov</span><span class="mu hm">0.44.0</span></a>
+  </div>
+
+  <div class="sec" style="margin-top:var(--s8)"><h2>Install Tokens</h2><a class="btn" href="#dlg-token">New Install Token</a></div>
+  <p class="mu" style="margin:calc(-1 * var(--s2)) 0 var(--s4)">Tokens let a machine add itself as a Host. Revoke any you no longer need.</p>
+  <div class="list" style="--cols:minmax(0,1.6fr) 110px 110px 150px 100px 90px">
+    <div class="r hd"><span>Description</span><span>Created</span><span>Expires</span><span>Uses</span><span>Ephemeral</span><span></span></div>
+    <div class="r"><span class="nm">CI runners<span class="sub om">Expires never · 3 of unlimited uses</span><span class="sub">Last used 2 days ago</span></span><span class="hm">1 Nov</span><span class="hm">Never</span><span class="hm">3 of unlimited</span><span class="hm">Yes</span><span class="end"><a class="btn danger" href="#">Revoke</a></span></div>
+    <div class="r"><span class="nm">Build servers<span class="sub om">Expires 21 Nov · 1 of 1 uses</span></span><span class="hm">14 Nov</span><span class="hm">21 Nov</span><span class="hm">0 of 1</span><span class="hm">No</span><span class="end"><a class="btn danger" href="#">Revoke</a></span></div>
+    <div class="r"><span class="nm">New laptop<span class="sub om">Expires 14 Nov · 1 of 1 uses</span></span><span class="hm">14 Nov</span><span class="hm">in 1 hour</span><span class="hm">0 of 1</span><span class="hm">No</span><span class="end"><a class="btn danger" href="#">Revoke</a></span></div>
+  </div>
+
+  <div class="dlg" id="dlg-token" role="dialog" aria-modal="true" aria-labelledby="t-h"><div class="box">
+    <div class="dh"><h2 id="t-h">New Install Token</h2><a class="x" href="#" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a></div>
+    <div class="body">
+      <div class="field"><label class="f" for="t-d">Description</label><input class="input" id="t-d" placeholder="e.g. CI runners"></div>
+      <div class="field"><label class="f" for="t-e">Expires</label><select class="input" id="t-e"><option>1 hour</option><option>1 day</option><option selected>7 days</option><option>30 days</option><option>Never</option></select></div>
+      <label class="check"><input type="checkbox"><span><b>Reusable</b><span class="hint" style="display:block;margin-top:0">Lets more than one machine use this token.</span></span></label>
+      <label class="check"><input type="checkbox"><span><b>Ephemeral Hosts</b><span class="hint" style="display:block;margin-top:0">Hosts are revoked automatically after 30 days unseen.</span></span></label>
+    </div>
+    <div class="df"><a class="btn" href="#">Cancel</a><a class="btn primary" href="#dlg-created">Create Install Token</a></div>
+  </div></div>
+
+  <div class="dlg" id="dlg-created" role="dialog" aria-modal="true" aria-labelledby="c-h"><div class="box">
+    <div class="dh"><h2 id="c-h">Install Token created</h2><a class="x" href="#" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a></div>
+    <div class="body">
+      <div class="notice"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg><div><b>Copy this token now. You will not see it again.</b>It is valid for 7 days.</div></div>
+      <div class="code"><code>avt_tk_9fK2mQx7LwR4tVb8Nc3HdYe1ZsA6JpU0</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div>
+    </div>
+    <div class="df"><a class="btn primary" href="#">Done</a></div>
+  </div></div>
+</main></body></html>

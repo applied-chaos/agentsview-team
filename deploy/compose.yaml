@@ -1,0 +1,38 @@
+name: agentsview-team
+
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in .env}
+      PLATFORM_DB_PASSWORD: ${PLATFORM_DB_PASSWORD:?set in .env}
+    # Five connections per Instance plus the Platform (ADR 0003).
+    command: ["postgres", "-c", "max_connections=${PG_MAX_CONNECTIONS:-400}"]
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 20
+
+  platform:
+    image: ghcr.io/applied-chaos/agentsview-team:${PLATFORM_VERSION:?set in .env}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PLATFORM_ENV: production
+      PLATFORM_DATABASE_URL: postgres://platform:${PLATFORM_DB_PASSWORD}@postgres:5432/platform?sslmode=disable
+    # What the hosted parser sandbox needs, and no more (ADR 0003).
+    security_opt: ["seccomp=seccomp.json", "apparmor=unconfined", "no-new-privileges"]
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: ["/home/platform:uid=10001,mode=0700"]
+    volumes:
+      - ./instances:/data
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy

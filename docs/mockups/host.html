@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>devbox-win · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script></head>
+<body data-tab="hosts"><main class="wrap">
+  <a class="back" href="hosts.html"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg> Hosts</a>
+  <div class="ph"><div><h1>devbox-win</h1><p style="margin-top:var(--s2)"><span class="st off">Offline</span></p></div><div class="acts"><button class="btn" type="button">Rename</button></div></div>
+  <div class="notice" style="margin-bottom:var(--s7)"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg><div style="flex:1;min-width:0"><b>Update available: 0.47.0</b>Run the install command again on this Host to update it.<div class="code" style="margin-top:var(--s3);background:var(--surface)"><code>irm https://teams.halcyon.example/install/windows.ps1 | iex</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div></div></div>
+  <div class="rail">
+    <dl class="kv">
+      <dt>Status</dt><dd><span class="st off">Offline</span></dd>
+      <dt>OS</dt><dd>Windows 11</dd>
+      <dt>Version</dt><dd>0.45.2<span class="upd" role="img" aria-label="Update available" title="Update available: 0.47.0"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg></span></dd>
+      <dt>Install mode</dt><dd>Scheduled task</dd>
+      <dt>Ephemeral</dt><dd>No</dd>
+      <dt>Last seen</dt><dd>2 h ago</dd>
+      <dt>Added</dt><dd>3 Sep 2026</dd>
+      <dt>Last upload</dt><dd>2 h ago</dd>
+    </dl>
+    <aside aria-label="Host usage">
+      <div class="figs"><div><span class="fig">41</span><span class="lbl">sessions, last 30 days</span></div><div><span class="fig">52M</span><span class="lbl">tokens, last 30 days</span></div></div>
+      <div data-cal="4" style="margin-top:var(--s6)"></div>
+    </aside>
+  </div>
+  <section style="margin-top:var(--s8)" aria-labelledby="re-h">
+    <div class="sec" style="margin-top:0"><h2 id="re-h">Reinstall or update</h2></div>
+    <p class="mu" style="margin-bottom:var(--s4)">Run this on the Host to reinstall or update it. It keeps the Host's name, Credential and history.</p>
+    <div class="code"><code>irm https://teams.halcyon.example/install/windows.ps1 | iex</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div>
+  </section>
+  <section style="margin-top:var(--s8)" aria-labelledby="un-h">
+    <div class="sec" style="margin-top:0"><h2 id="un-h">Uninstall</h2></div>
+    <p class="mu" style="margin-bottom:var(--s4)">Run this on the Host to stop uploading and remove agentsview from it. This does not revoke the Host.</p>
+    <div class="code"><code>irm https://teams.halcyon.example/install/windows-uninstall.ps1 | iex</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div>
+  </section>
+  <section class="danger-zone" aria-labelledby="dz-h" style="margin-top:var(--s8)">
+    <div class="sec" style="margin-top:0"><h2 id="dz-h">Danger zone</h2></div>
+    <div class="r"><div><b>Revoke Host</b><p class="mu">Stops this Host uploading and invalidates its credential. Existing sessions stay in your Instance.</p></div><a class="btn danger" href="#dlg-revoke">Revoke Host</a></div>
+    <div class="r"><div><b>Delete Host</b><p class="mu">Revokes this Host and removes it from your Hosts. Existing sessions stay in your Instance.</p></div><a class="btn danger" href="#dlg-delete">Delete Host</a></div>
+  </section>
+  <div class="dlg" id="dlg-revoke" role="dialog" aria-modal="true" aria-labelledby="r-h"><div class="box">
+    <div class="dh"><h2 id="r-h">Revoke devbox-win?</h2><a class="x" href="#" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a></div>
+    <div class="body"><p>devbox-win will stop uploading and its credential will stop working. Sessions it already uploaded stay in your Instance.</p><p class="mu">To use this machine again, add it as a new Host.</p></div>
+    <div class="df"><a class="btn" href="#">Cancel</a><a class="btn danger solid" href="hosts.html">Revoke Host</a></div>
+  </div></div>
+  <div class="dlg" id="dlg-delete" role="dialog" aria-modal="true" aria-labelledby="d-h"><div class="box">
+    <div class="dh"><h2 id="d-h">Delete devbox-win?</h2><a class="x" href="#" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a></div>
+    <div class="body"><p>devbox-win will stop uploading and disappear from your Hosts. Sessions it already uploaded stay in your Instance.</p><p class="mu">This cannot be undone. To use this machine again, add it as a new Host.</p></div>
+    <div class="df"><a class="btn" href="#">Cancel</a><a class="btn danger solid" href="hosts.html">Delete Host</a></div>
+  </div></div>
+</main></body></html>

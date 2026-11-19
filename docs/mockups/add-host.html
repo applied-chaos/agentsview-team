@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add Host · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script>
+<style>
+.steps{max-width:720px}
+.os-linux,.os-mac,.os-win{display:none}
+.steps:has(#os-linux:checked) .os-linux,.steps:has(#os-mac:checked) .os-mac,.steps:has(#os-win:checked) .os-win{display:flex}
+.steps:not(:has(#os-linux:checked)) .linux-only{display:none}
+.steps:has(#connected:target) .waiting{display:none}
+#connected{display:none}#connected:target{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap}
+</style></head>
+<body data-tab="hosts"><main class="wrap">
+  <a class="back" href="hosts.html"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg> Hosts</a>
+  <div class="ph"><div><h1>Add Host</h1><p class="mu">Install the agent on a machine to send its sessions to your Instance.</p></div></div>
+  <ol class="steps">
+    <li>
+      <h2>Choose the operating system</h2>
+      <div class="seg" role="radiogroup" aria-label="Operating system">
+        <label><input type="radio" name="os" id="os-mac"><span>macOS</span></label>
+        <label><input type="radio" name="os" id="os-linux" checked><span>Linux</span></label>
+        <label><input type="radio" name="os" id="os-win"><span>Windows</span></label>
+      </div>
+      <div class="linux-only" style="margin-top:var(--s5)">
+        <div style="display:grid;gap:var(--s3)" role="radiogroup" aria-label="How to install on Linux">
+          <label class="check"><input type="radio" name="mode" checked><span><b>Install as a system service</b></span></label>
+          <label class="check"><input type="radio" name="mode"><span><b>Add to shell profile</b></span></label>
+        </div>
+      </div>
+      <div class="field" style="margin-top:var(--s5);max-width:360px"><label class="f" for="hn">Host name <span class="mu">(optional)</span></label><input class="input" id="hn" maxlength="64" placeholder="The machine's name"><p class="hint">Leave blank to use the machine’s name.</p></div>
+      <label class="check" style="margin-top:var(--s5)"><input type="checkbox"><span><b>Ephemeral Host</b><span class="hint" style="display:block;margin-top:0">Host is removed automatically after it goes offline, for CI and cloud workspaces.</span></span></label>
+    </li>
+    <li>
+      <h2>Run this command on the Host</h2>
+      <div class="code os-linux"><code>curl -fsSL https://teams.halcyon.example/install/linux.sh | AVT_TOKEN=avt_tk_9fK2mQx7LwR4tVb8 bash</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div>
+      <div class="code os-mac"><code>curl -fsSL https://teams.halcyon.example/install/macos.sh | AVT_TOKEN=avt_tk_9fK2mQx7LwR4tVb8 bash</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div>
+      <div class="code os-win"><code>$env:AVT_TOKEN="avt_tk_9fK2mQx7LwR4tVb8"; irm https://teams.halcyon.example/install/windows.ps1 | iex</code><button class="btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg> Copy</button></div>
+      <div class="notice info" style="margin-top:var(--s4)"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><div>This command includes a one-time Install Token valid for 1 hour.</div></div>
+    </li>
+    <li>
+      <h2>Wait for the Host to connect</h2>
+      <div class="waiting"><div class="wait"><span class="spin"></span><span>Waiting for the Host to connect…</span></div><p class="hint">It usually takes under a minute.</p></div>
+      <div id="connected"><span class="st"><b>build-02 connected</b>&nbsp;Online</span><a class="btn primary" href="host.html">View Host</a></div>
+    </li>
+  </ol>
+</main></body></html>

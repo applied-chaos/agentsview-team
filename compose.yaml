@@ -1,0 +1,112 @@
+# No `name:` and no published ports: the Makefile sets COMPOSE_PROJECT_NAME per run so runs can overlap on one Docker daemon.
+
+x-oidc: &oidc
+  OIDC_ISSUER: http://fakeoidc:9000
+  OIDC_CLIENT_ID: platform
+  OIDC_CLIENT_SECRET: platform-secret
+  OIDC_PROVIDER_NAME: Halcyon
+  PLATFORM_ALLOWED_EMAIL_DOMAINS: halcyon.example
+  PLATFORM_SECRET_KEY: dev-only-secret-key-do-not-use-elsewhere
+
+# What the hosted parser sandbox needs, and no more (ADR 0003).
+x-sandbox: &sandbox
+  security_opt: ["seccomp=deploy/seccomp.json", "apparmor=unconfined", "no-new-privileges"]
+  cap_drop: [ALL]
+  read_only: true
+  tmpfs: ["/home/platform:uid=10001,mode=0700"]
+
+services:
+  postgres:
+    # Built, not bind-mounted, so it works from a CI job container too.
+    build: { context: initdb }
+    # Five connections per Instance (ADR 0003). No fsync: e2e creates and drops ~100 Instance
+    # databases in two minutes, and each DROP DATABASE waits on a forced checkpoint that a slow disk cannot keep up with.
+    command: ["postgres", "-c", "max_connections=400", "-c", "fsync=off"]
+    environment:
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      retries: 30
+
+  fakeoidc:
+    build: { context: ., target: fakeoidc }
+    environment:
+      FAKEOIDC_ISSUER: http://fakeoidc:9000
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/fakeoidc", "healthcheck"]
+      interval: 2s
+      retries: 30
+
+  platform:
+    build: { context: ., target: platform, args: { GO_TAGS: testclock } }
+    <<: *sandbox
+    volumes: [instances:/data]
+    environment:
+      <<: *oidc
+      PLATFORM_BASE_URL: http://platform:8080
+      PLATFORM_DATABASE_URL: postgres://platform:platform@postgres:5432/platform?sslmode=disable
+      PLATFORM_REQUIRED_GROUP: staff
+    depends_on:
+      postgres: { condition: service_healthy }
+      fakeoidc: { condition: service_healthy }
+
+  platform-prod:
+    build: { context: ., target: platform }
+    <<: *sandbox
+    volumes: [instances-prod:/data]
+    environment:
+      <<: *oidc
+      PLATFORM_ENV: production
+      PLATFORM_BASE_URL: http://localhost:8080
+      PLATFORM_DATABASE_URL: postgres://platform:platform@postgres:5432/platform_prod?sslmode=disable
+    depends_on:
+      postgres: { condition: service_healthy }
+      fakeoidc: { condition: service_healthy }
+
+  # Linux machines for the install-script tests. They share the platform's network
+  # namespace so it is loopback to them: agentsview's raw-sync client refuses plain HTTP elsewhere.
+  linux-profile:
+    profiles: [test]
+    build: { context: ., dockerfile: e2e/hosts/Dockerfile, target: profile }
+    network_mode: "service:platform"
+    depends_on:
+      platform: { condition: service_healthy }
+
+  linux-systemd:
+    profiles: [test]
+    build: { context: ., dockerfile: e2e/hosts/Dockerfile, target: systemd }
+    network_mode: "service:platform"
+    privileged: true
+    tmpfs: [/run, /run/lock]
+    depends_on:
+      platform: { condition: service_healthy }
+
+  # Shares platform-prod's network namespace so the browser sees http://localhost:8080: the Platform's session cookies are Secure, which Chromium only accepts over HTTP for localhost. fakeoidc still resolves by name.
+  ui:
+    profiles: [ui]
+    network_mode: "service:platform-prod"
+    build: { context: web, dockerfile: Dockerfile.ui, args: { PLAYWRIGHT_VERSION: "${PLAYWRIGHT_VERSION:?set by the Makefile}" } }
+    init: true
+    shm_size: 1gb
+    depends_on:
+      platform-prod: { condition: service_healthy }
+
+  tests:
+    profiles: [test]
+    build: { context: ., target: e2e }
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock", "instances:/data:ro"]
+    environment:
+      PLATFORM_URL: http://platform:8080
+      PLATFORM_PROD_URL: http://platform-prod:8080
+      ISSUER_URL: http://fakeoidc:9000
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/platform
+    depends_on:
+      platform: { condition: service_healthy }
+      platform-prod: { condition: service_healthy }
+      linux-profile: { condition: service_started }
+      linux-systemd: { condition: service_started }
+
+volumes:
+  instances:
+  instances-prod:

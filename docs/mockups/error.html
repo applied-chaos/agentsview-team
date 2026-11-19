@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script></head>
+<body data-bar="none">
+<main class="center"><div class="box">
+  <div class="logo" role="img" aria-label="AgentsView Teams"></div>
+  <h1 id="t"></h1>
+  <p id="b"></p>
+  <a class="btn big" id="a" href="sign-in.html"></a>
+  <p class="foot" id="f">If this keeps happening, ask an Admin.</p>
+</div></main>
+<script>
+// ?reason=<code>: every error the Platform serves as a page. Copy matches ErrorPage.svelte.
+var C = {
+  "sign-in-expired": [
+    "Your sign-in expired",
+    "It took too long or was interrupted. Sign in again to carry on.",
+    "Sign in again",
+    "sign-in.html"
+  ],
+  "provider-refused": [
+    "Your sign-in wasn't completed",
+    "Your identity provider didn't let you sign in. Try again, or ask an Admin if it keeps happening.",
+    "Sign in again",
+    "sign-in.html"
+  ],
+  "provider-unavailable": [
+    "We couldn't reach your identity provider",
+    "We couldn't finish signing you in. Wait a moment, then try again.",
+    "Sign in again",
+    "sign-in.html"
+  ],
+  "bad-identity": [
+    "We couldn't check your sign-in",
+    "Your identity provider sent something we couldn't verify. Try again, or ask an Admin to check the provider's settings.",
+    "Sign in again",
+    "sign-in.html"
+  ],
+  "no-verified-email": [
+    "We need a verified email",
+    "Your identity provider didn't confirm your email address. Verify it there, then sign in again.",
+    "Sign in again",
+    "sign-in.html"
+  ],
+  "unauthorised": [
+    "Sign in to continue",
+    "You need to be signed in to see this page.",
+    "Sign in",
+    "sign-in.html"
+  ],
+  "forbidden": [
+    "You can't open this page",
+    "Your account doesn't have access to it. Ask an Admin if you think it should.",
+    "Back to Overview",
+    "overview.html"
+  ],
+  "not-found": [
+    "Page not found",
+    "This page doesn't exist or has moved.",
+    "Back to Overview",
+    "overview.html"
+  ],
+  "unavailable": [
+    "AgentsView Teams is unavailable",
+    "Something it depends on isn't responding. Wait a moment, then try again.",
+    "Back to Overview",
+    "overview.html"
+  ],
+  "server-error": [
+    "Something went wrong",
+    "That wasn't your fault. Try again in a moment, or ask an Admin if it keeps happening.",
+    "Back to Overview",
+    "overview.html"
+  ],
+  "bad-request": [
+    "That didn't work",
+    "We couldn't make sense of that request. Go back to Overview and try again.",
+    "Back to Overview",
+    "overview.html"
+  ]
+};
+var r = new URLSearchParams(location.search).get('reason');
+var c = C[r] || C['server-error'];
+document.getElementById('t').textContent = c[0];
+document.getElementById('b').textContent = c[1];
+var a = document.getElementById('a');
+a.textContent = c[2];
+a.href = c[3];
+if (r === 'not-found') document.getElementById('f').remove();
+</script>
+</body></html>

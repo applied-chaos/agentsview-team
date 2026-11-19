@@ -1,0 +1,109 @@
+name: ci
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  # Weekly rebuild of main and the latest release, so images pick up base image and package fixes.
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  # A tag points at a commit main already checked; a scheduled rebuild changes no code.
+  check:
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')) }}
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_PROJECT_NAME: avteam-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: make check
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: web/test-results
+          if-no-files-found: ignore
+
+  refs:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    outputs:
+      refs: ${{ steps.refs.outputs.refs }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: refs
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = push ]; then
+            refs="[\"$GITHUB_REF_NAME\"]"
+          else
+            latest=$(git tag -l 'v*' --sort=-v:refname | head -1)
+            refs="[\"main\"${latest:+,\"$latest\"}]"
+          fi
+          echo "refs=$refs" >> "$GITHUB_OUTPUT"
+
+  image:
+    needs: [check, refs]
+    if: ${{ always() && needs.refs.result == 'success' && (needs.check.result == 'success' || needs.check.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        ref: ${{ fromJSON(needs.refs.outputs.refs) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+          fetch-depth: 0
+      - id: tags
+        env:
+          REF: ${{ matrix.ref }}
+        run: |
+          sha=$(git rev-parse HEAD)
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          tags="$IMAGE:$REF,$IMAGE:sha-${sha::7}"
+          case "$REF" in
+            v*) [ "$REF" = "$(git tag -l 'v*' --sort=-v:refname | head -1)" ] && tags="$tags,$IMAGE:latest" ;;
+          esac
+          echo "tags=$tags" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: platform
+          platforms: linux/amd64,linux/arm64
+          push: true
+          pull: true
+          no-cache: ${{ github.event_name == 'schedule' }}
+          tags: ${{ steps.tags.outputs.tags }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ steps.tags.outputs.sha }}
+            org.opencontainers.image.licenses=MIT
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

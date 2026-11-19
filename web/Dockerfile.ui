@@ -1,0 +1,9 @@
+# Playwright runs in compose on the project network: no published ports, reaches services by name.
+ARG PLAYWRIGHT_VERSION
+FROM mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble
+WORKDIR /web
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY . .
+ENV UI_URL=http://localhost:8080
+CMD ["npx", "playwright", "test"]

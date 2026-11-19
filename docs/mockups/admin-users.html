@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Users · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script></head>
+<body>
+<main class="wrap">
+  <div class="ph"><div><h1>Admin</h1><p class="mu">Everyone with a sign-in to Halcyon.</p></div></div>
+  <nav class="subtabs" aria-label="Admin"><a href="admin-users.html" aria-current="page">Users</a><a href="admin-instance.html">Admin Instance</a><a href="audit.html">Audit Log</a></nav>
+  <div class="toolbar">
+    <div class="search"><label class="vh" for="q">Search Users</label><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input id="q" class="input" type="search" placeholder="Search Users"></div>
+    <div class="seg" role="radiogroup" aria-label="Filter Users"><label><input type="radio" name="f" checked><span>All</span></label><label><input type="radio" name="f"><span>Admins</span></label><label><input type="radio" name="f"><span>Disabled</span></label></div>
+    <a class="btn primary" href="#dlg-grant" style="margin-left:auto">Grant Admin</a>
+  </div>
+  <div class="list" style="--cols:minmax(0,1.6fr) 140px 150px 70px 90px 110px">
+    <div class="r hd"><span>User</span><span>Role</span><span>Status</span><span class="end">Hosts</span><span class="end">Storage</span><span>Last active</span></div>
+    <a class="r" href="admin-user.html"><span class="nm">Jess Okafor<span class="sub">jess@halcyon.example</span></span><span class="hm">Admin</span><span class="st stc">Active</span><span class="hm end">6</span><span class="hm end">2.4 GB</span><span class="hm">Today</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Priya Nair<span class="sub">priya@halcyon.example</span></span><span class="hm">User</span><span class="st stc">Active</span><span class="hm end">3</span><span class="hm end">1.2 GB</span><span class="hm">12 min ago</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Sam Lee<span class="sub">sam@halcyon.example</span></span><span class="hm">User</span><span class="st stc">Active</span><span class="hm end">2</span><span class="hm end">684 MB</span><span class="hm">1 h ago</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Tomás Ruiz<span class="sub">tomas@halcyon.example</span></span><span class="hm">User</span><span class="st stc">Active</span><span class="hm end">4</span><span class="hm end">1.8 GB</span><span class="hm">Yesterday</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Mei Chen<span class="sub">mei@halcyon.example</span></span><span class="hm">Admin</span><span class="st stc">Active</span><span class="hm end">3</span><span class="hm end">920 MB</span><span class="hm">Today</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Ade Bello<span class="sub">ade@halcyon.example</span></span><span class="hm">User</span><span class="st stc">Active</span><span class="hm end">1</span><span class="hm end">212 MB</span><span class="hm">3 days ago</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Lena Fischer<span class="sub">lena@halcyon.example</span></span><span class="hm">User</span><span class="st stc">Active</span><span class="hm end">2</span><span class="hm end">540 MB</span><span class="hm">11 Nov</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Owen Price<span class="sub">owen@halcyon.example</span></span><span class="hm">Admin</span><span class="st stc">Active</span><span class="hm end">0</span><span class="hm end">0 B</span><span class="hm">Never</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Rafael Costa<span class="sub">rafael@halcyon.example</span></span><span class="hm">User</span><span class="st off stc">Disabled</span><span class="hm end">2</span><span class="hm end">1.1 GB</span><span class="hm">28 Oct</span></a>
+    <a class="r" href="admin-user.html"><span class="nm">Hana Sato<span class="sub">hana@halcyon.example</span></span><span class="hm">User</span><span class="st bad stc">Instance failed</span><span class="hm end">1</span><span class="hm end">96 MB</span><span class="hm">9 Nov</span></a>
+  </div>
+<div class="dlg" id="dlg-grant" role="dialog" aria-modal="true" aria-labelledby="grant-h"><div class="box"><div class="dh"><h2 id="grant-h">Grant Admin</h2><a class="x" href="#" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a></div><div class="body"><div><label class="f" for="ge">Email</label><input id="ge" class="input" type="email" placeholder="name@halcyon.example"><p class="hint">If they haven't signed in yet, the grant stays pending until they do.</p></div></div><div class="df"><a class="btn" href="#">Cancel</a><a class="btn primary" href="#">Grant Admin</a></div></div></div>
+</main>
+</body></html>

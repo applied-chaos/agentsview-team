@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockups · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script>
+<style>
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--s6) var(--s5);margin-bottom:var(--s7)}
+.g a.card{display:block;color:var(--text)}
+.g a.card:hover{text-decoration:none}
+.g a.card:hover b{text-decoration:underline;text-underline-offset:3px}
+.g img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:var(--r);margin-bottom:var(--s2);background:var(--c0)}
+:root[data-theme=dark] .g img.lt,:root:not([data-theme=dark]) .g img.dk{display:none}
+.g b{display:block;font-weight:600}
+.g .mu a{color:var(--mu);text-decoration:underline;text-underline-offset:2px}
+.tt{display:flex;justify-content:space-between;align-items:center;gap:var(--s4)}
+</style></head>
+<body data-bar="none">
+<main class="wrap">
+  <div class="ph tt"><div><h1>AgentsView Teams mockups</h1><p class="mu">UI acceptance reference for ticket #3. Click a screen to open it live; use the account menu inside to switch theme and accent.</p></div>
+    <button class="btn" data-act="theme" aria-checked="false">Dark mode <span class="tog"></span></button></div>
+  <div id="sections"></div>
+</main>
+<script>
+const SECTIONS = [
+  ['Sign in', [['sign-in', 'Sign in'], ['not-permitted', 'Not permitted'], ['error?reason=sign-in-expired', 'Error: sign-in expired'], ['error?reason=no-verified-email', 'Error: no verified email'], ['error?reason=not-found', 'Error: not found']]],
+  ['Overview', [['overview', 'Overview'], ['overview#settings', 'Settings dialog'], ['overview?menu=open', 'Mobile menu open'], ['overview-empty', 'First run, no Hosts'], ['overview-loading', 'Loading placeholders']]],
+  ['Hosts', [['hosts', 'Hosts and Install Tokens'], ['hosts-loading', 'Loading placeholders'], ['hosts#dlg-token', 'New Install Token'], ['hosts#dlg-created', 'Install Token shown once'], ['add-host', 'Add Host, waiting for Host'], ['add-host#connected', 'Add Host, connected'], ['host', 'Host detail, Offline and outdated'], ['host#dlg-revoke', 'Revoke Host'], ['host#dlg-delete', 'Delete Host']]],
+  ['Team', [['team', 'Team']]],
+  ['My Instance', [['instance', 'My Instance with Platform bar'], ['instance?banner=view', 'Instance View banner'], ['instance?banner=imp', 'Impersonation banner'], ['instance-failed', 'Instance failed']]],
+  ['Admin', [['admin-users', 'Users'], ['admin-users#dlg-grant', 'Grant Admin'], ['admin-user', 'User detail'], ['admin-user#dlg-disable', 'Disable User'], ['admin-user#dlg-delete', 'Delete User'], ['admin-instance', 'Admin Instance and usage by User'], ['audit', 'Audit Log']]],
+];
+const thumb = p => p.includes('menu=open') ? 'mobile' : 'desktop';
+const fit = p => p.includes('menu=open') ? ' style="object-fit:contain"' : '';
+const png = (p, t, v) => `png/${p.replace(/[?#=&]/g, '-')}-${t}-${v}.png`;
+const href = p => { const [f, rest = ''] = p.split(/(?=[?#])/); return f + '.html' + rest; };
+document.getElementById('sections').innerHTML = SECTIONS.map(([h, items]) => `<section><div class="sec"><h2>${h}</h2></div><div class="g">${items.map(([p, l]) =>
+  `<div><a class="card" href="${href(p)}"><img class="lt" src="${png(p, 'light', thumb(p))}" alt="" loading="lazy"${fit(p)}><img class="dk" src="${png(p, 'dark', thumb(p))}" alt="" loading="lazy"${fit(p)}><b>${l}</b></a>
+   <span class="mu sm">PNG: <a href="${png(p, 'light', 'desktop')}">light</a> · <a href="${png(p, 'dark', 'desktop')}">dark</a> · mobile <a href="${png(p, 'light', 'mobile')}">light</a> · <a href="${png(p, 'dark', 'mobile')}">dark</a></span></div>`).join('')}</div></section>`).join('');
+</script>
+</body></html>

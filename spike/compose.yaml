@@ -1,0 +1,84 @@
+name: avspike
+
+x-image: &image
+  build: .
+  image: avspike:local
+  user: "10001"
+  environment:
+    PGHOST: postgres
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+      - pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      retries: 30
+
+  platform:
+    <<: *image
+    command: ["/spike/platform.sh"]
+    environment:
+      PGHOST: postgres
+      INSTANCES: ${INSTANCES:-alice admin}
+      # Writable temp for parser materialisation on a read-only root.
+      TMPDIR: /data/tmp
+    # What Kubernetes' restricted Pod Security Standard asks for, plus the sandbox's needs (ADR 0003).
+    security_opt: ["seccomp=${PLATFORM_SECCOMP:-seccomp.json}", "apparmor=${PLATFORM_APPARMOR:-unconfined}", "no-new-privileges"]
+    cap_drop: [ALL]
+    read_only: true
+    # Docbank keeps vault locks under the passwd home (~/.local/state/docbank), ignoring $HOME.
+    tmpfs: ["/home/platform:uid=10001,mode=0700"]
+    volumes:
+      - data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  host:
+    <<: *image
+    profiles: [tools]
+    # Upstream allows plain HTTP only to loopback, so share the Platform's network namespace.
+    network_mode: service:platform
+    environment:
+      HOME: /home/platform
+      AGENTSVIEW_DATA_DIR: /home/platform/.agentsview
+      CLAUDE_PROJECTS_DIR: /home/platform/claude
+      AGENTSVIEW_RAW_SYNC_URL: http://127.0.0.1:8081
+      SESSIONS: ${SESSIONS:-50}
+      TURNS: ${TURNS:-40}
+      SEED: ${SEED:-1}
+      RUN_ID: ${RUN_ID:-spike-1}
+    volumes:
+      - data:/data:ro
+      - host-checkpoint:/home/platform
+    command:
+      - bash
+      - -euc
+      - |
+        python3 /spike/gensessions.py "$$CLAUDE_PROJECTS_DIR" "$$SESSIONS" "$$TURNS" "$$SEED"
+        set -a; . /data/alice/devices/laptop.env; set +a
+        # Exit status 2 means incomplete: run the same backfill again.
+        for _ in 1 2 3 4 5 6 7 8 9 10; do
+          agentsview source raw backfill --run-id "$$RUN_ID" --provider claude --batch-size 128 --format json --allow-insecure-http && exit 0
+          sleep 2
+        done
+        exit 1
+
+  tools:
+    <<: *image
+    profiles: [tools]
+    network_mode: service:platform
+    volumes:
+      - data:/data
+    command: ["bash"]
+
+volumes:
+  pg:
+  data:
+  host-checkpoint:

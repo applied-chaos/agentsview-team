@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Audit Log · AgentsView Teams</title><link rel="stylesheet" href="mock.css"><script src="mock.js"></script></head>
+<body>
+<main class="wrap">
+  <div class="ph"><div><h1>Admin</h1><p class="mu">Every Admin action and every Impersonation.</p></div></div>
+  <nav class="subtabs" aria-label="Admin"><a href="admin-users.html">Users</a><a href="admin-instance.html">Admin Instance</a><a href="audit.html" aria-current="page">Audit Log</a></nav>
+  <div class="toolbar">
+    <div class="search"><label class="vh" for="q">Search the Audit Log</label><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input id="q" class="input" type="search" placeholder="Search the Audit Log"></div>
+    <div style="width:190px"><label class="vh" for="at">Action type</label><select id="at" class="input"><option>All actions</option><option>Impersonation</option><option>Instance View</option><option>Admin grants</option><option>User changes</option><option>Hosts</option><option>Install Tokens</option></select></div>
+    <div style="width:170px"><label class="vh" for="dr">Date range</label><select id="dr" class="input"><option>Last 7 days</option><option>Last 30 days</option><option>Last 90 days</option><option>All time</option></select></div>
+  </div>
+  <div class="list" style="--cols:130px 130px minmax(0,1.2fr) minmax(0,1.1fr) minmax(0,1.5fr)">
+    <div class="r hd"><span>Time</span><span>Admin</span><span>Action</span><span>Target</span><span>Details</span></div>
+    <div class="r"><span class="hm nowrap">14 Nov, 15:42</span><span class="hm">Jess Okafor</span><span class="nm">Impersonation started<span class="sub om">Priya Nair · Jess Okafor</span></span><span class="hm">Priya Nair</span><span class="mu hm">Support request</span><span class="om end mu nowrap">14 Nov</span></div>
+    <div class="r"><span class="hm nowrap">14 Nov, 15:31</span><span class="hm">Jess Okafor</span><span class="nm">Impersonation ended<span class="sub om">Priya Nair · Jess Okafor</span></span><span class="hm">Priya Nair</span><span class="mu hm">Lasted 11 min</span><span class="om end mu nowrap">14 Nov</span></div>
+    <div class="r"><span class="hm nowrap">14 Nov, 14:07</span><span class="hm">Mei Chen</span><span class="nm">Instance View opened<span class="sub om">Tomás Ruiz · Mei Chen</span></span><span class="hm">Tomás Ruiz</span><span class="mu hm">Read only</span><span class="om end mu nowrap">14 Nov</span></div>
+    <div class="r"><span class="hm nowrap">14 Nov, 11:20</span><span class="hm">Jess Okafor</span><span class="nm">Admin granted<span class="sub om">owen@halcyon.example · Jess Okafor</span></span><span class="hm">owen@halcyon.example</span><span class="mu hm">Pending until first sign-in</span><span class="om end mu nowrap">14 Nov</span></div>
+    <div class="r"><span class="hm nowrap">13 Nov, 17:45</span><span class="hm">Mei Chen</span><span class="nm">User disabled<span class="sub om">Rafael Costa · Mei Chen</span></span><span class="hm">Rafael Costa</span><span class="mu hm">Left the company</span><span class="om end mu nowrap">13 Nov</span></div>
+    <div class="r"><span class="hm nowrap">13 Nov, 16:02</span><span class="hm">Jess Okafor</span><span class="nm">Host revoked<span class="sub om">priya-win · Jess Okafor</span></span><span class="hm">priya-win</span><span class="mu hm">Lost laptop</span><span class="om end mu nowrap">13 Nov</span></div>
+    <div class="r"><span class="hm nowrap">13 Nov, 09:18</span><span class="hm">Mei Chen</span><span class="nm">Install Token created<span class="sub om">Lena Fischer · Mei Chen</span></span><span class="hm">Lena Fischer</span><span class="mu hm">Expires in 24 h</span><span class="om end mu nowrap">13 Nov</span></div>
+    <div class="r"><span class="hm nowrap">12 Nov, 15:55</span><span class="hm">Jess Okafor</span><span class="nm">Impersonation ended<span class="sub om">Sam Lee · Jess Okafor</span></span><span class="hm">Sam Lee</span><span class="mu hm">Lasted 4 min</span><span class="om end mu nowrap">12 Nov</span></div>
+    <div class="r"><span class="hm nowrap">12 Nov, 15:51</span><span class="hm">Jess Okafor</span><span class="nm">Impersonation started<span class="sub om">Sam Lee · Jess Okafor</span></span><span class="hm">Sam Lee</span><span class="mu hm">Sync not appearing</span><span class="om end mu nowrap">12 Nov</span></div>
+    <div class="r"><span class="hm nowrap">11 Nov, 10:30</span><span class="hm">Mei Chen</span><span class="nm">User deleted<span class="sub om">Dana Whitlock · Mei Chen</span></span><span class="hm">Dana Whitlock</span><span class="mu hm">Instance and 38 sessions removed</span><span class="om end mu nowrap">11 Nov</span></div>
+    <div class="r"><span class="hm nowrap">10 Nov, 13:12</span><span class="hm">Jess Okafor</span><span class="nm">Admin role removed<span class="sub om">Ade Bello · Jess Okafor</span></span><span class="hm">Ade Bello</span><span class="mu hm">Granted 2 Nov</span><span class="om end mu nowrap">10 Nov</span></div>
+    <div class="r"><span class="hm nowrap">10 Nov, 09:40</span><span class="hm">Mei Chen</span><span class="nm">Instance View opened<span class="sub om">Hana Sato · Mei Chen</span></span><span class="hm">Hana Sato</span><span class="mu hm">Read only</span><span class="om end mu nowrap">10 Nov</span></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--s4);margin-top:var(--s5)"><span class="mu">Showing 12 of 1,284</span><span style="display:flex;gap:var(--s2)"><button class="btn" disabled>Previous</button><button class="btn">Next</button></span></div>
+</main>
+</body></html>

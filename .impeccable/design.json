@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T18:00:00Z",
+  "title": "Design System: AgentsView Teams",
+  "extensions": {
+    "colorMeta": {
+      "accent-blue": { "role": "primary", "displayName": "Console Blue", "canonical": "#3b5bdb", "tonalRamp": ["#141f4a", "#1f2f6e", "#2a4093", "#3b5bdb", "#6680e3", "#93a6ec", "#bfcbf4", "#e6ebfb"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#fafafa" },
+      "surface": { "role": "neutral", "displayName": "Surface", "canonical": "#ffffff" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#111111", "tonalRamp": ["#111111", "#2b2b2b", "#454545", "#636363", "#8a8a8a", "#b0b0b0", "#d6d6d6", "#f2f2f2"] },
+      "muted-ink": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#636363" },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#e8e8e8" },
+      "calendar-empty": { "role": "neutral", "displayName": "Calendar Empty", "canonical": "#eef0f4" },
+      "status-ok": { "role": "status", "displayName": "OK", "canonical": "#16a34a" },
+      "status-off": { "role": "status", "displayName": "Off", "canonical": "#a3a3a3" },
+      "status-warn": { "role": "status", "displayName": "Warn", "canonical": "#b45309" },
+      "status-danger": { "role": "status", "displayName": "Danger", "canonical": "#b91c1c" },
+      "impersonation-amber": { "role": "status", "displayName": "Impersonation Amber", "canonical": "#b45309" },
+      "impersonation-ink": { "role": "status", "displayName": "Impersonation Ink", "canonical": "#7c2d12" },
+      "night": { "role": "neutral", "displayName": "Night", "canonical": "#0e1013" },
+      "night-surface": { "role": "neutral", "displayName": "Night Surface", "canonical": "#15171b" },
+      "night-ink": { "role": "neutral", "displayName": "Night Ink", "canonical": "#ececee" },
+      "night-muted-ink": { "role": "neutral", "displayName": "Night Muted Ink", "canonical": "#9b9ea6" },
+      "night-hairline": { "role": "neutral", "displayName": "Night Hairline", "canonical": "#262930" },
+      "night-calendar-empty": { "role": "neutral", "displayName": "Night Calendar Empty", "canonical": "#1d2026" }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Headline", "purpose": "Page h1, one per page." },
+      "figure": { "displayName": "Figure", "purpose": "Headline numbers in the rail; 28px in the Team band." },
+      "title": { "displayName": "Title", "purpose": "Section h2s; dialog titles at 20px." },
+      "body": { "displayName": "Body", "purpose": "All running text and buttons (600)." },
+      "label": { "displayName": "Label", "purpose": "Column heads, sub-lines, Platform bar." },
+      "mono": { "displayName": "Mono", "purpose": "Commands, Install Tokens, IDs." }
+    },
+    "shadows": [
+      { "name": "float", "value": "0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.10)", "purpose": "Account menu and dialogs only (light)." },
+      { "name": "float-dark", "value": "0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.5)", "purpose": "Account menu and dialogs only (dark)." }
+    ],
+    "motion": [
+      { "name": "toggle", "value": "left .15s", "purpose": "Dark mode toggle knob." },
+      { "name": "spin", "value": "1s linear infinite (3s under prefers-reduced-motion)", "purpose": "Waiting for Host spinner." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "1000px" },
+      { "name": "mobile", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default action.",
+      "html": "<button class=\"ds-btn\">Copy</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:36px;padding:7px 14px;font:600 15px/1.2 'Source Sans 3',system-ui,sans-serif;border-radius:5px;border:1px solid var(--line,#e8e8e8);background:var(--surface,#fff);color:var(--text,#111);cursor:pointer}.ds-btn:hover{border-color:color-mix(in oklab,#111 25%,#e8e8e8)}.ds-btn:focus-visible{outline:2px solid var(--accent,#3b5bdb);outline-offset:2px}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "One per view.",
+      "html": "<button class=\"ds-btn-primary\">Add Host</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;min-height:36px;padding:7px 14px;font:600 15px/1.2 'Source Sans 3',system-ui,sans-serif;border-radius:5px;border:1px solid var(--accent,#3b5bdb);background:var(--accent,#3b5bdb);color:#fff;cursor:pointer}.ds-btn-primary:hover{background:color-mix(in oklab,var(--accent,#3b5bdb) 88%,#000)}.ds-btn-primary:focus-visible{outline:2px solid var(--accent,#3b5bdb);outline-offset:2px}"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text field.",
+      "html": "<input class=\"ds-input\" placeholder=\"Token name\">",
+      "css": ".ds-input{width:260px;min-height:38px;padding:7px 11px;font:15px 'Source Sans 3',system-ui,sans-serif;color:#111;background:#fff;border:1px solid color-mix(in oklab,#111 18%,#e8e8e8);border-radius:5px}.ds-input::placeholder{color:#636363}.ds-input:focus-visible{outline:2px solid var(--accent,#3b5bdb);outline-offset:2px}"
+    },
+    {
+      "name": "Top tabs",
+      "kind": "nav",
+      "refersTo": "top-bar",
+      "description": "Slim top bar tabs with underline for the current page.",
+      "html": "<nav class=\"ds-tabs\"><a aria-current=\"page\" href=\"#\">Overview</a><a href=\"#\">Hosts</a><a href=\"#\">Team</a><a class=\"ds-inst\" href=\"#\">My Instance</a></nav>",
+      "css": ".ds-tabs{display:flex;gap:24px;height:52px;padding:0 16px;background:#fff;border-bottom:1px solid #e8e8e8;font:15px 'Source Sans 3',system-ui,sans-serif}.ds-tabs a{display:flex;align-items:center;color:#636363;text-decoration:none}.ds-tabs a:hover{color:#111}.ds-tabs a[aria-current=page]{color:#111;box-shadow:inset 0 -2px #111}.ds-tabs a.ds-inst{color:var(--accent,#3b5bdb)}.ds-tabs a:focus-visible{outline:2px solid var(--accent,#3b5bdb);outline-offset:2px}"
+    },
+    {
+      "name": "Status",
+      "kind": "chip",
+      "refersTo": "list-row",
+      "description": "Dot plus word, never colour alone.",
+      "html": "<span class=\"ds-st\">Online</span> <span class=\"ds-st ds-off\">Offline</span>",
+      "css": ".ds-st{display:inline-flex;align-items:center;gap:7px;font:15px 'Source Sans 3',system-ui,sans-serif;color:#111;margin-right:16px}.ds-st::before{content:'';width:8px;height:8px;border-radius:50%;background:#16a34a}.ds-off::before{background:#a3a3a3}"
+    },
+    {
+      "name": "Striped list",
+      "kind": "custom",
+      "refersTo": "list-row",
+      "description": "Rows on the page, no outer box.",
+      "html": "<div class=\"ds-list\"><a class=\"ds-r\" href=\"#\"><b>jess-mbp</b><span>Online</span></a><a class=\"ds-r\" href=\"#\"><b>devbox-win</b><span>Offline</span></a><a class=\"ds-r\" href=\"#\"><b>ci-runner-03</b><span>Online</span></a></div>",
+      "css": ".ds-list{width:420px;font:15px/1.55 'Source Sans 3',system-ui,sans-serif}.ds-r{display:flex;justify-content:space-between;padding:11px 12px;border-radius:5px;color:#111;text-decoration:none}.ds-r:nth-child(even){background:rgba(0,0,0,.035)}.ds-r:hover{background:rgba(0,0,0,.07)}.ds-r b{font-weight:600}.ds-r span{color:#636363}"
+    },
+    {
+      "name": "Activity calendar",
+      "kind": "custom",
+      "description": "Tokens per day in five accent steps.",
+      "html": "<div class=\"ds-cal\"><i></i><i class=\"a1\"></i><i class=\"a2\"></i><i class=\"a3\"></i><i class=\"a4\"></i><i class=\"a2\"></i><i class=\"a1 t\"></i></div>",
+      "css": ".ds-cal{display:grid;grid-template-columns:repeat(7,28px);gap:6px}.ds-cal i{aspect-ratio:1;border-radius:2px;background:#eef0f4}.ds-cal .a1{background:color-mix(in oklab,var(--accent,#3b5bdb) 24%,#eef0f4)}.ds-cal .a2{background:color-mix(in oklab,var(--accent,#3b5bdb) 48%,#eef0f4)}.ds-cal .a3{background:color-mix(in oklab,var(--accent,#3b5bdb) 74%,#eef0f4)}.ds-cal .a4{background:var(--accent,#3b5bdb)}.ds-cal .t{box-shadow:0 0 0 2px #fafafa,0 0 0 3.5px #111}"
+    },
+    {
+      "name": "Impersonation banner",
+      "kind": "custom",
+      "refersTo": "banner-impersonation",
+      "description": "Fixed amber, pinned; never accent-tinted.",
+      "html": "<div class=\"ds-imp\">Impersonating Priya Nair <button>End</button></div>",
+      "css": ".ds-imp{display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 16px;background:#b45309;color:#fff;font:600 15px 'Source Sans 3',system-ui,sans-serif}.ds-imp button{min-height:30px;padding:4px 12px;border-radius:5px;border:1px solid #fff;background:#fff;color:#7c2d12;font:inherit;cursor:pointer}.ds-imp button:focus-visible{outline:2px solid #fff;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Console",
+    "overview": "A standard light and dark SaaS admin console, built to sit beside agentsview without competing with it. The reference is the Tailscale admin console; the craft bar is Linear and Vercel. Content leads, chrome stays slim, and colour is kept for state and one accent the User chooses. It is not agentsview's look.\n\nDensity is calm rather than packed. Lists are striped rows on the page, not boxed cards; figures are large tabular numbers with a muted label; sections are separated by space and single hairlines, never by nested borders. Every screen has one clear job, one h1, and at most one primary action.\n\nThe same tokens drive a full light and a full dark theme. Dark is a first-class theme, not an inversion: it has its own neutrals, brighter status colours and a lightened accent for links.",
+    "keyCharacteristics": [
+      "Slim 52px top bar: brand, Overview / Hosts / Team, My Instance; everything else in the account menu.",
+      "One accent (accent-blue by default), per-User, from a palette or HSL.",
+      "Striped lists, hairline rules, generous spacing; no cards inside cards.",
+      "Status always as dot plus word.",
+      "Source Sans 3 for everything; JetBrains Mono only for commands, tokens and IDs."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "The accent is the only hue that is not a status. If something is coloured and is not the accent, it must mean OK, Off, Warn, Danger or Impersonation.", "section": "colors" },
+      { "name": "The Dot Plus Word Rule", "body": "Status is never colour alone: a dot is always followed by its word (Online, Offline, Disabled, Failed).", "section": "colors" },
+      { "name": "The Fixed Alarm Rule", "body": "The Impersonation banner is amber whatever accent the User picks, so it can never be mistaken for the Instance View banner, which is accent-tinted.", "section": "colors" },
+      { "name": "The Few Sizes Rule", "body": "Six sizes, no more: 34, 27, 18, 15, 13, 12. Weight 600 and colour carry the rest of the hierarchy.", "section": "typography" },
+      { "name": "The Only Floats Cast Rule", "body": "If it scrolls with the page, it has no shadow. Shadow means \"this is above the page and will go away\".", "section": "elevation" }
+    ],
+    "dos": [
+      "Do route every accent use through the one accent token so a User's choice changes the whole UI.",
+      "Do pair every status dot with its word.",
+      "Do show secrets (Install Tokens) once, in mono, with a copy button and a warning notice.",
+      "Do keep banners pinned while scrolling.",
+      "Do design both themes for every screen; check text at AA in each.",
+      "Do restructure lists and rails at narrow widths rather than shrinking them."
+    ],
+    "donts": [
+      "Don't copy agentsview's look; this is a separate, standard admin console.",
+      "Don't put Admin in the top tabs; it belongs in the account menu.",
+      "Don't box lists in cards or nest bordered containers.",
+      "Don't add shadows to anything that scrolls with the page.",
+      "Don't add type sizes beyond the six in the scale.",
+      "Don't tint the Impersonation banner with the User's accent.",
+      "Don't show another person's figures on the Team page."
+    ]
+  }
+}
