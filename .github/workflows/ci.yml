@@ -32,6 +32,8 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: web/package-lock.json
+      # Ubuntu 24.04 runners block unprivileged user namespaces, which the Instance sandbox needs.
+      - run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - run: make check
       - if: failure()
         uses: actions/upload-artifact@v4

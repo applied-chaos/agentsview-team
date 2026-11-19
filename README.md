@@ -16,7 +16,7 @@ Images: `ghcr.io/applied-chaos/agentsview-team`, for `linux/amd64` and `linux/ar
 ### Requirements
 
 - Docker with Compose v2, on Linux.
-- Unprivileged user namespaces enabled on the host (`sysctl kernel.unprivileged_userns_clone` is `1` where it exists; `user.max_user_namespaces` above 0). Instances parse sessions in a sandbox that needs them ([ADR 0003](docs/decisions/0003-hosted-agentsview-spike-findings.md)).
+- Unprivileged user namespaces enabled on the host (`sysctl kernel.unprivileged_userns_clone` is `1` where it exists; `user.max_user_namespaces` above 0; on Ubuntu 23.10 and later also `kernel.apparmor_restrict_unprivileged_userns=0`). Instances parse sessions in a sandbox that needs them ([ADR 0003](docs/decisions/0003-hosted-agentsview-spike-findings.md)).
 - An OIDC issuer (Authentik, Keycloak, Google, Entra ID, ...) and a client registered with redirect URI `https://<your domain>/auth/callback`.
 - A reverse proxy terminating TLS in front of port 8080. Hosts refuse plain HTTP.
 - Memory: roughly 50 MB per idle Instance and 250 MB per Instance during a backfill.
